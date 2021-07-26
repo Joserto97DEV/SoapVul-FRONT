@@ -1,0 +1,38 @@
+<div class="sidenav">
+    <div class="login-main-text">
+       <h6>Herramienta web de autoaprendizaje en explotación de vulnerabilidades sobre servicios SOAP.</h6>
+       <h6>Máster en Seguridad Informática. UNIR</h6>
+       <br>
+       <p>TFM del Alumno Jose Alberto del Val Acebes</p>
+       <p>Tutor: Juan Ramón Bermejo</p>
+       <p>Curso 2020/2021</p>
+ 
+    </div>
+</div>
+
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+       <div class="login-form">
+          <form (ngSubmit)="select(selectForm.value)" [formGroup]="selectForm">
+             <div class="form-group">
+                <label>Select a level: </label>
+                <select class="form-select" formControlName="level" > 
+                    <option *ngFor="let level of levelList" >
+                     {{ level }}
+                    </option>
+                  </select>
+             </div>
+             <div class="form-group">
+                <label>Select a vulnerability: </label>
+                <select class="form-select" formControlName="vulnerability">
+                    <option *ngFor="let level of vulnerabilityList">
+                     {{ level }}
+                    </option>
+                  </select>
+             </div>
+             <br>
+             <input type="submit" class="btn btn-outline-secondary" [disabled]="!selectForm.valid" value="Comenzar!">
+          </form>
+       </div>
+    </div>
+ </div>
