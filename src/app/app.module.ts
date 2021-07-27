@@ -7,6 +7,10 @@ import { InitComponent } from './init/init.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SqlInjectionComponent } from './sql-injection/sql-injection.component';
 
+import { NgxSoapModule, NgxSoapService} from 'ngx-soap';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,9 +21,10 @@ import { SqlInjectionComponent } from './sql-injection/sql-injection.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSoapModule
   ],
-  providers: [],
+  providers: [NgxSoapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

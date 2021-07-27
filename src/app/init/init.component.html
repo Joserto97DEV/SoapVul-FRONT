@@ -25,8 +25,8 @@
              <div class="form-group">
                 <label>Select a vulnerability: </label>
                 <select class="form-select" formControlName="vulnerability">
-                    <option *ngFor="let level of vulnerabilityList">
-                     {{ level }}
+                    <option *ngFor="let vulnerability of vulnerabilityList">
+                     {{ vulnerability }}
                     </option>
                   </select>
              </div>
