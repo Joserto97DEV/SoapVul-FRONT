@@ -1,0 +1,51 @@
+<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light cursor">
+        <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+            <div class="mx-auto">
+                <a class="navbar-brand">SQL Injection - {{level}}</a>
+            </div>           
+        </div>
+    </nav>
+    <br><br><br>
+    <div>
+        <h2>
+            SQL Injection.
+        </h2>
+        <h4>
+            Page to exploit the Sql injection vulnerability.
+        </h4>
+        
+    </div>
+    <!-- Form to exploit the vulnerability -->
+    <div>
+        <br>
+        <h6>
+            To find a movie by its director fill out the following form.
+        </h6>
+        <form (ngSubmit)="find(filmForm.value)" [formGroup]="filmForm">
+            <div class="form-group">
+                <label>Film director name: </label>
+                <input type="text" class="form-control" placeholder="Enter director name" formControlName="directorName">
+                <small class="form-text text-muted">Hint: the database table in which the movie is searched has 5 columns.</small>     
+            </div>
+            <br>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <input class="btn btn-outline-secondary" type="button" value="Go Back"
+                                (click)="this.sharedService.resetComponentAndRedirectInit()">
+                        </td>
+                        <td>
+                            <input type="submit" class="btn btn-outline-secondary" [disabled]="!filmForm.valid" value="FIND!">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+         </form>
+    </div>
+
+            
+
+</div>

@@ -32,6 +32,10 @@ export class InitComponent implements OnInit {
       level: 'Easy',
       vulnerability: 'SQL Injection'
    });
+
+   //SESION
+    localStorage.getItem('level');
+    localStorage.getItem('vulnerability');
   }
   
   
@@ -42,7 +46,17 @@ export class InitComponent implements OnInit {
   select(form) {
     this.level = form.level;
     this.vulnerability = form.vulnerability;
-    alert(this.level+" " +this.vulnerability);
+
+    localStorage.setItem('level', this.level.toString());
+    localStorage.setItem('sqlInjection', this.vulnerability.toString());
+
+
+    switch(this.vulnerability){
+      case 'SQL Injection':
+        this.router.navigate(['sqlInjection']);
+      //TODO: Rellenar con el resto de vulnerabilidades
+
+    }
   }
   
   
