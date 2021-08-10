@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SqlInjectionComponent } from './sql-injection/sql-injection.component';
 
 import { NgxSoapModule, NgxSoapService} from 'ngx-soap';
+import { XssComponent } from './xss/xss.component';
 
 
 
@@ -15,7 +16,8 @@ import { NgxSoapModule, NgxSoapService} from 'ngx-soap';
   declarations: [
     AppComponent,
     InitComponent,
-    SqlInjectionComponent
+    SqlInjectionComponent,
+    XssComponent
   ],
   imports: [
     BrowserModule,

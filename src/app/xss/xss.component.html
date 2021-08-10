@@ -3,30 +3,21 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light cursor">
         <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
             <div class="mx-auto">
-                <a class="navbar-brand">SQL Injection - {{level}}</a>
+                <a class="navbar-brand">XSS - {{level}}</a>
             </div>           
         </div>
     </nav>
     <br><br><br>
         <div>
             <h2>
-                SQL Injection.
+                Cross Site Scripting.
             </h2>
             <h4>
-                Page to exploit the Sql injection vulnerability.
+                Page to exploit the Cross Site Scripting vulnerability.
             </h4>
             
         </div>
     <div *ngIf="!findDone">
-        <div>
-            <br>
-            <h6>
-                If you want all the movies to be shown, click on the button .
-            </h6>
-            <div>
-                <button class="btn btn-outline-secondary" (click)="showAll()">Show All!</button>
-            </div>
-        </div>
         <!-- Form to exploit the vulnerability -->
         <div>
             <br>
@@ -37,15 +28,17 @@
                 <div class="form-group">
                     <label>Film director name: </label>
                     <input type="text" class="form-control" placeholder="Enter director name" formControlName="directorName">
-                    <small class="form-text text-muted">Hint: the database table in which the movie is searched has 4 columns and sql 
-                        query is SELECT * FROM FILMS WHERE DIRECTOR = form.director</small>  
-                    <br> 
                     <small class="form-text text-muted">Hint: there are flms created by: "Malcolm D. Lee", "Jaume Collet-Serra", 
-                        "Santiago Segura", "Cate Shortland", "Everardo Gout" and "M. Night Shyamalan".</small>   
+                        "Santiago Segura", "Cate Shortland", "Everardo Gout" and "M. Night Shyamalan".</small>  
+                    <br>
+                    <small class="form-text text-muted">What happend if you insert a script in the form?</small>  
                 </div>
                 <br>
                 <div *ngIf="filmIsEmpty">
                     <div class="alert alert-warning">Film not found.</div>
+                </div>
+                <div>
+                    <p [innerHTML]="director"></p>
                 </div>
                 <div>
                     <table>
@@ -100,8 +93,8 @@
             </tr>
 
         </table>
-        <div *ngIf="findByDirectorMethod && films.length>1">
-            <div class="alert alert-warning">GOOD JOB!. You are a HACKER!.</div>
+        <div>
+            <p [innerHTML]="getHtmlSnippet()"></p>
         </div>
     </div>     
 

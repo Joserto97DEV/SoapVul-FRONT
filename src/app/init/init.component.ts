@@ -12,7 +12,7 @@ export class InitComponent implements OnInit {
 
   public selectForm: FormGroup;
   levelList: string[] =["Easy","Hard"];
-  vulnerabilityList: string[] = ["SQL Injection", "SOAP Array Abuse", "CSRF"];
+  vulnerabilityList: string[] = ["SQL Injection", "XSS", "SOAP Array Abuse", "CSRF"];
   level: string; 
   vulnerability: string; 
   
@@ -54,6 +54,10 @@ export class InitComponent implements OnInit {
     switch(this.vulnerability){
       case 'SQL Injection':
         this.router.navigate(['sqlInjection']);
+        break;
+      case 'XSS':
+        this.router.navigate(['xss']);
+        break;
       //TODO: Rellenar con el resto de vulnerabilidades
 
     }

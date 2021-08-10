@@ -14,19 +14,19 @@
     <div class="col-md-6 col-sm-12">
        <div class="login-form">
           <form (ngSubmit)="select(selectForm.value)" [formGroup]="selectForm">
+            <div class="form-group">
+               <label>Select a vulnerability: </label>
+               <select class="form-select" formControlName="vulnerability">
+                   <option *ngFor="let vulnerability of vulnerabilityList">
+                    {{ vulnerability }}
+                   </option>
+                 </select>
+            </div>
              <div class="form-group">
                 <label>Select a level: </label>
                 <select class="form-select" formControlName="level" > 
                     <option *ngFor="let level of levelList" >
                      {{ level }}
-                    </option>
-                  </select>
-             </div>
-             <div class="form-group">
-                <label>Select a vulnerability: </label>
-                <select class="form-select" formControlName="vulnerability">
-                    <option *ngFor="let vulnerability of vulnerabilityList">
-                     {{ vulnerability }}
                     </option>
                   </select>
              </div>

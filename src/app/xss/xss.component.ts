@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedService } from '../services/shared.service';
-
 import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
-import { ThrowStmt } from '@angular/compiler';
+import { SharedService } from '../services/shared.service';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser'
+
 
 
 @Component({
-  selector: 'app-sql-injection',
-  templateUrl: './sql-injection.component.html',
-  styleUrls: ['./sql-injection.component.css']
+  selector: 'app-xss',
+  templateUrl: './xss.component.html',
+  styleUrls: ['./xss.component.css']
 })
-export class SqlInjectionComponent implements OnInit {
+
+
+export class XssComponent implements OnInit {
 
 
   constructor(private router:Router,
     public form: FormBuilder,
     private sharedService: SharedService,
-    private soap: NgxSoapService){
+    private soap: NgxSoapService,
+    private sanitizer: DomSanitizer){
       this.soap.createClient('http://localhost:8080/services/film.wsdl').then(client => this.client = client);
-    }
+  }
+
 
   //if its hard level its true. Use to set difficult of the vulnerability test.
   level: string;
@@ -33,14 +37,10 @@ export class SqlInjectionComponent implements OnInit {
   findDone=false;
   /*not films*/
   filmIsEmpty=false;
-  /*method of find*/
-  findByDirectorMethod=false;
-
-  directorList: string[] = ["Malcolm D. Lee", "Jaume Collet-Serra", "Santiago Segura", "Cate Shortland", "Everardo Gout", "M. Night Shyamalan"];
+  /*director name*/
+  director;
 
   ngOnInit() {
-    
-    console.log(this.soap);
     this.level = localStorage.getItem('level');
     //if(localStorage.getItem('vulnerability')!='SQL Injection') this.router.navigate(['']);
     if(this.level =='hard') this.hard = true;
@@ -49,19 +49,13 @@ export class SqlInjectionComponent implements OnInit {
     this.filmForm = this.form.group({
       directorName: ['', Validators.required]
     });
+    this.director=this.sanitizer.bypassSecurityTrustHtml('<script type="text/javascript">alert("You have been hacked!"); document.body.firstElementChild.className = 1;</script>');
   }
 
   find(form) {
+    this.director=this.sanitizer.bypassSecurityTrustHtml(form.directorName);
     const body = {
       director: form.directorName
-    };
-    this.findByDirectorMethod=true;
-    this.apiCall(body);
-  }
-
-  showAll(){
-    const body = {
-      director: "' or '1'='1"
     };
     this.apiCall(body);
   }
@@ -87,8 +81,8 @@ export class SqlInjectionComponent implements OnInit {
     this.findDone=false;
     this.films=[];
     this.filmIsEmpty=false;
-    this.findByDirectorMethod=false;
     this.filmForm.reset();
   }
+
 
 }
