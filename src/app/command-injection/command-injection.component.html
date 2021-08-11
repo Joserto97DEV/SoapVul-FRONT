@@ -1,0 +1,57 @@
+<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light cursor">
+        <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+            <div class="mx-auto">
+                <a class="navbar-brand">XSS - {{level}}</a>
+            </div>           
+        </div>
+    </nav>
+    <br><br><br>
+        <div>
+            <h2>
+                Command injection.
+            </h2>
+            <h4>
+                Page to exploit the command injection vulnerability.
+            </h4>
+            
+        </div>
+    <div *ngIf="!findDone">
+        <!-- Form to exploit the vulnerability -->
+        <div>
+            <br>
+            <h6>
+                To ping any ip fill out the following form.
+            </h6>
+            <form (ngSubmit)="ping(pingForm.value)" [formGroup]="pingForm">
+                <div class="form-group">
+                    <label>Ip: </label>
+                    <input type="text" class="form-control" placeholder="Enter a Ip direction to ping:" formControlName="ipNumber">
+                    <small class="form-text text-muted">Hint: The command executed is ping + ip entered in the form.</small>  
+                    <br>
+                </div>
+                <br>
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <input class="btn btn-outline-secondary" type="button" value="Go Back"
+                                    (click)="this.sharedService.resetComponentAndRedirectInit()">
+                            </td>
+                            <td>
+                                <input type="submit" class="btn btn-outline-secondary" [disabled]="!pingForm.valid" value="FIND!">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="pingOk">
+            <p>The ping result is:</p>
+            <div id="pingResult"></div>
+        </div>
+
+    </div>  
+
+</div>

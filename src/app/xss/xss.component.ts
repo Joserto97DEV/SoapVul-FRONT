@@ -49,11 +49,9 @@ export class XssComponent implements OnInit {
     this.filmForm = this.form.group({
       directorName: ['', Validators.required]
     });
-    this.director=this.sanitizer.bypassSecurityTrustHtml('<script type="text/javascript">alert("You have been hacked!"); document.body.firstElementChild.className = 1;</script>');
   }
 
   find(form) {
-    this.director=this.sanitizer.bypassSecurityTrustHtml(form.directorName);
     const body = {
       director: form.directorName
     };
@@ -64,6 +62,7 @@ export class XssComponent implements OnInit {
     (<any>this.client).GetFilmByDirector(body).subscribe((res: ISoapMethodResponse) => {
       this.filmIsEmpty=false;
 
+      var elemento=document.getElementById('xss').innerHTML="You have serch by: "+body.director;
       if(res.result===null){
         this.filmIsEmpty=true;
       }

@@ -31,14 +31,13 @@
                     <small class="form-text text-muted">Hint: there are flms created by: "Malcolm D. Lee", "Jaume Collet-Serra", 
                         "Santiago Segura", "Cate Shortland", "Everardo Gout" and "M. Night Shyamalan".</small>  
                     <br>
-                    <small class="form-text text-muted">What happend if you insert a script in the form?</small>  
+                    <small class="form-text text-muted">Hint: the form validates some elements. </small>  
                 </div>
                 <br>
                 <div *ngIf="filmIsEmpty">
                     <div class="alert alert-warning">Film not found.</div>
                 </div>
-                <div>
-                    <p [innerHTML]="director"></p>
+                <div id="xss">
                 </div>
                 <div>
                     <table>
@@ -93,9 +92,6 @@
             </tr>
 
         </table>
-        <div>
-            <p [innerHTML]="getHtmlSnippet()"></p>
-        </div>
     </div>     
 
 </div>
