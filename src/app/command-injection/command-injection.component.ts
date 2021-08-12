@@ -32,6 +32,7 @@ export class CommandInjectionComponent implements OnInit {
 
 
 
+
   ngOnInit() {
     this.level = localStorage.getItem('level');
     //if(localStorage.getItem('vulnerability')!='SQL Injection') this.router.navigate(['']);
@@ -55,8 +56,16 @@ export class CommandInjectionComponent implements OnInit {
 
   apiCall(body){
     (<any>this.client).GetPingIp(body).subscribe((res: ISoapMethodResponse) => {
-      console.log(res.result)
-      var elemento=document.getElementById('resultPing').innerHTML="Result of your ping is: "+res.result.result;
+      console.log(res.responseBody);
+      if(res.responseBody.length>297){
+        let result = res.responseBody;
+        result = result.substring(217,result.length-1);
+        result = result.substring(0,result.indexOf('<'))
+        this.pingResult=result;
+      }
+      else{
+        this.pingResult="No se ha podido ejecutar el ping correctamente";
+      }
       this.pingOk=true;
     });
   }
