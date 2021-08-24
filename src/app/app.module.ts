@@ -10,6 +10,7 @@ import { SqlInjectionComponent } from './sql-injection/sql-injection.component';
 import { NgxSoapModule, NgxSoapService} from 'ngx-soap';
 import { XssComponent } from './xss/xss.component';
 import { CommandInjectionComponent } from './command-injection/command-injection.component';
+import { SoapArrayAbuseComponent } from './soap-array-abuse/soap-array-abuse.component';
 
 
 
@@ -19,7 +20,8 @@ import { CommandInjectionComponent } from './command-injection/command-injection
     InitComponent,
     SqlInjectionComponent,
     XssComponent,
-    CommandInjectionComponent
+    CommandInjectionComponent,
+    SoapArrayAbuseComponent
   ],
   imports: [
     BrowserModule,

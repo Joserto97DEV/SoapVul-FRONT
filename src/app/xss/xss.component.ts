@@ -52,6 +52,7 @@ export class XssComponent implements OnInit {
   }
 
   find(form) {
+    this.director = form.directorName;
     const body = {
       director: form.directorName
     };
@@ -62,7 +63,9 @@ export class XssComponent implements OnInit {
     (<any>this.client).GetFilmByDirector(body).subscribe((res: ISoapMethodResponse) => {
       this.filmIsEmpty=false;
 
-      var elemento=document.getElementById('xss').innerHTML="You have serch by: "+body.director;
+      if(this.level=="Easy"){
+        var elemento=document.getElementById('xss').innerHTML="You have serch by: "+body.director;
+      }
       if(res.result===null){
         this.filmIsEmpty=true;
       }

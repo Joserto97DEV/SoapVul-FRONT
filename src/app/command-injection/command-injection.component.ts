@@ -47,11 +47,20 @@ export class CommandInjectionComponent implements OnInit {
   }
 
   ping(form) {
-    const body = {
-      ipNumber: form.ipNumber
-    };
-    console.log(body)
-    this.apiCall(body);
+    if(this.level=="Easy"){
+      let body = {
+        ipNumber: form.ipNumber,
+        isSafe: false
+      };
+      this.apiCall(body);
+    }
+    if(this.level!=="Easy"){
+      let body = {
+        ipNumber: form.ipNumber,
+        isSafe: true
+      };
+      this.apiCall(body);
+    }  
   }
 
   apiCall(body){

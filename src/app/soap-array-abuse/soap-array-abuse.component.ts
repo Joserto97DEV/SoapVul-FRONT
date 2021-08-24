@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../services/shared.service';
 
 import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
-import { ThrowStmt } from '@angular/compiler';
-
 
 @Component({
-  selector: 'app-sql-injection',
-  templateUrl: './sql-injection.component.html',
-  styleUrls: ['./sql-injection.component.css']
+  selector: 'app-soap-array-abuse',
+  templateUrl: './soap-array-abuse.component.html',
+  styleUrls: ['./soap-array-abuse.component.css']
 })
-export class SqlInjectionComponent implements OnInit {
-
+export class SoapArrayAbuseComponent implements OnInit {
 
   constructor(private router:Router,
     public form: FormBuilder,
@@ -21,6 +18,7 @@ export class SqlInjectionComponent implements OnInit {
     private soap: NgxSoapService){
       this.soap.createClient('http://localhost:8080/services/film.wsdl').then(client => this.client = client);
     }
+
 
   //if its hard level its true. Use to set difficult of the vulnerability test.
   level: string;
@@ -33,34 +31,32 @@ export class SqlInjectionComponent implements OnInit {
   findDone=false;
   /*not films*/
   filmIsEmpty=false;
-  /*method of find*/
-  findByDirectorMethod=false;
-
-  directorList: string[] = ["Malcolm D. Lee", "Jaume Collet-Serra", "Santiago Segura", "Cate Shortland", "Everardo Gout", "M. Night Shyamalan"];
 
   ngOnInit() {
-    
-    console.log(this.soap);
-    this.level = localStorage.getItem('level');
-    //if(localStorage.getItem('vulnerability')!='SQL Injection') this.router.navigate(['']);
-    if(this.level =='hard') this.hard = true;
-    else this.hard = false;
 
     this.filmForm = this.form.group({
-      directorName: ['', Validators.required]
+      params: new FormArray([
+        new FormControl('', Validators.required)
+      ])
     });
   }
 
-  find(form) {
-    const body = {
-      director: form.directorName
-    };
-    this.findByDirectorMethod=true;
-    if(this.level=="Easy"){
-      this.apiCall(body);
+
+  get params(): FormArray {
+    return this.filmForm.get('params') as FormArray;
+  }
+
+
+  addParamField(index) { 
+    if(this.params.status=="INVALID"){
+      return;
     }
-    else{
-      this.apiSecureCall(body);
+    this.params.push(new FormControl('', Validators.required)); 
+  }
+
+  deleteParamsField(index: number) {
+    if (this.params.length !== 1) { 
+      this.params.removeAt(index); 
     }
   }
 
@@ -68,10 +64,18 @@ export class SqlInjectionComponent implements OnInit {
     const body = {
       director: "' or '1'='1"
     };
-    this.apiCall(body);
+    this.apiCallAll(body);
   }
 
-  apiCall(body){
+  showByParams(){
+    const body ={
+      ParamsArray: [1000000000000000000000000]
+    }
+    console.log(body);
+    this.apiCallAllParams(body);
+  }
+
+  apiCallAll(body){
     (<any>this.client).GetFilmByDirector(body).subscribe((res: ISoapMethodResponse) => {
       this.filmIsEmpty=false;
 
@@ -87,8 +91,9 @@ export class SqlInjectionComponent implements OnInit {
       console.log(res.result.Films)
     });
   }
-  apiSecureCall(body){
-    (<any>this.client).GetFilmByDirectorSafe(body).subscribe((res: ISoapMethodResponse) => {
+
+  apiCallAllParams(body){
+    (<any>this.client).GetFilmByParams(body).subscribe((res: ISoapMethodResponse) => {
       this.filmIsEmpty=false;
 
       if(res.result===null){
@@ -104,11 +109,11 @@ export class SqlInjectionComponent implements OnInit {
     });
   }
 
+
   goInitComponent(){
     this.findDone=false;
     this.films=[];
     this.filmIsEmpty=false;
-    this.findByDirectorMethod=false;
     this.filmForm.reset();
   }
 

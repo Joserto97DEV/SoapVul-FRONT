@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class InitComponent implements OnInit {
 
   public selectForm: FormGroup;
-  levelList: string[] =["Easy","Hard"];
-  vulnerabilityList: string[] = ["SQL Injection", "XSS", "Command Injection", "SOAP Array Abuse", "CSRF"];
+  levelList: string[] =["Easy","Safe Service"];
+  vulnerabilityList: string[] = ["SQL Injection", "XSS", "Command Injection", "SOAP Array Abuse"];
   level: string; 
   vulnerability: string; 
   
@@ -61,6 +61,8 @@ export class InitComponent implements OnInit {
       case 'Command Injection':
         this.router.navigate(['ci']);
         break;
+      case "SOAP Array Abuse":
+        this.router.navigate(['saa']);
       //TODO: Rellenar con el resto de vulnerabilidades
 
     }
