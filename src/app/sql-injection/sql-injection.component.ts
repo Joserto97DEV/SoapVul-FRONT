@@ -6,6 +6,9 @@ import { SharedService } from '../services/shared.service';
 import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
 import { ThrowStmt } from '@angular/compiler';
 
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @Component({
   selector: 'app-sql-injection',
@@ -18,7 +21,8 @@ export class SqlInjectionComponent implements OnInit {
   constructor(private router:Router,
     public form: FormBuilder,
     private sharedService: SharedService,
-    private soap: NgxSoapService){
+    private soap: NgxSoapService,
+    private modalService: NgbModal){
       this.soap.createClient('http://localhost:8080/services/film.wsdl').then(client => this.client = client);
     }
 
@@ -112,4 +116,13 @@ export class SqlInjectionComponent implements OnInit {
     this.filmForm.reset();
   }
 
+  open(content,content2) {
+    if(this.level=="Easy"){
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
+    else{
+      this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
+  }
+  
 }

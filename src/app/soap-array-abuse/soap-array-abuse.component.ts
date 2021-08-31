@@ -67,11 +67,12 @@ export class SoapArrayAbuseComponent implements OnInit {
     this.apiCallAll(body);
   }
 
-  showByParams(){
+  showByParams(filmForm){
+
     const body ={
-      ParamsArray: [1000000000000000000000000]
+      ParamsArray: filmForm.params
     }
-    console.log(body);
+    console.log(filmForm.params);
     this.apiCallAllParams(body);
   }
 

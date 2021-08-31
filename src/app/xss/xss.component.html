@@ -52,11 +52,40 @@
                             <td>
                                 <input type="submit" class="btn btn-outline-secondary" [disabled]="!filmForm.valid" value="FIND!">
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-secondary" (click)="open(mymodal,mymodalSafe)">Show code</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
             </form>
         </div>
+
+        <ng-template #mymodal let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">XSS vulnerable code</h4>
+            </div>
+            <div class="modal-body">
+                <img src="assets/img/xss.png" class="rounded mx-auto d-block">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Ok</button>
+            </div>
+        </ng-template>
+
+        <ng-template #mymodalSafe let-modal >
+            
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">XSS safe code</h4>
+            </div>
+            <div class="modal-body">
+                <img src="assets/img/xssSafe.png" class="rounded mx-auto d-block">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Ok</button>
+            </div>
+            
+        </ng-template>
 
     </div>  
 

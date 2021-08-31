@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
 import { SharedService } from '../services/shared.service';
 import {BrowserModule, DomSanitizer} from '@angular/platform-browser'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -21,7 +22,8 @@ export class XssComponent implements OnInit {
     public form: FormBuilder,
     private sharedService: SharedService,
     private soap: NgxSoapService,
-    private sanitizer: DomSanitizer){
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal){
       this.soap.createClient('http://localhost:8080/services/film.wsdl').then(client => this.client = client);
   }
 
@@ -84,6 +86,15 @@ export class XssComponent implements OnInit {
     this.films=[];
     this.filmIsEmpty=false;
     this.filmForm.reset();
+  }
+
+  open(content,content2) {
+    if(this.level=="Easy"){
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
+    else{
+      this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
   }
 
 

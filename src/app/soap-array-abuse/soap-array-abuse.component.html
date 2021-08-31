@@ -3,14 +3,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light cursor">
         <div class="collapse navbar-collapse" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
             <div class="mx-auto">
-                <a class="navbar-brand">SOAP ARRAY ABUSE - {{level}}</a>
+                <a class="navbar-brand">SOAP ARRAY ABUSE</a>
             </div>           
         </div>
     </nav>
     <br><br><br>
         <div>
             <h2>
-                Soap Arrayl Abuse.
+                Soap Array Abuse.
             </h2>
             <h4>
                 Page to exploit the Soap Array Abuse vulnerability.
@@ -35,7 +35,7 @@
             </h6>
 
             <div class="container">
-                <form [formGroup] = "filmForm" (ngSubmit)="showByParams()">
+                <form [formGroup] = "filmForm" (ngSubmit)="showByParams(filmForm.value)">
                   <div formArrayName="params">
                     <div *ngFor="let param of params.controls; index as idx" class="form-group">
                       <input [formControlName]="idx" placeholder="Enter a Param" class="form-control">

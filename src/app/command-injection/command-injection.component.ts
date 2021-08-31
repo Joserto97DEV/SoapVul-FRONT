@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
 import { SharedService } from '../services/shared.service';
 
@@ -15,7 +16,7 @@ export class CommandInjectionComponent implements OnInit {
     public form: FormBuilder,
     private sharedService: SharedService,
     private soap: NgxSoapService,
-    ) { 
+    private modalService: NgbModal) { 
       this.soap.createClient('http://localhost:8080/services/ping.wsdl').then(client => this.client = client);
     }
 
@@ -73,10 +74,19 @@ export class CommandInjectionComponent implements OnInit {
         this.pingResult=result;
       }
       else{
-        this.pingResult="No se ha podido ejecutar el ping correctamente";
+        this.pingResult="The ping could not be executed correctly";
       }
       this.pingOk=true;
     });
+  }
+
+  open(content,content2) {
+    if(this.level=="Easy"){
+      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
+    else{
+      this.modalService.open(content2, {ariaLabelledBy: 'modal-basic-title', size:'lg'});
+    }
   }
 
 }

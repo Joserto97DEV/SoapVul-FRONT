@@ -42,6 +42,9 @@
                             <td>
                                 <input type="submit" class="btn btn-outline-secondary" [disabled]="!pingForm.valid" value="FIND!">
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-secondary" (click)="open(mymodal,mymodalSafe)">Show code</button>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -50,6 +53,32 @@
         <div *ngIf="pingOk">
             <p>Result of your ping is: </p>
             <p>{{pingResult}}</p>
+        </div>
+        <div>
+            <ng-template #mymodal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Command Injection vulnerable code</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="assets/img/ping.png" class="rounded mx-auto d-block">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Ok</button>
+                </div>
+            </ng-template>
+        </div>
+        <div>
+            <ng-template #mymodalSafe let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Command Injection safe code</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="assets/img/pingSafe.png" class="rounded mx-auto d-block">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Ok</button>
+                </div>
+            </ng-template>
         </div>
 
     </div>  
